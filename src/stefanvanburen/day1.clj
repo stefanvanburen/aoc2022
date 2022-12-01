@@ -1,4 +1,4 @@
-(ns stefanvanburen.aoc2022
+(ns stefanvanburen.day1
   (:require
    [clojure.string :refer [split]]
    [clojure.java.io :as io]))
