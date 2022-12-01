@@ -17,13 +17,16 @@
   (map #(total-elf %) parsed-input))
 
 (defn part1 []
-  (apply max
-         (total-elves (parse-input input)))) ; 70116
+  (->> (parse-input input)
+       (total-elves)
+       (apply max)))
 
 (defn part2 []
-  (apply +
-         (take 3
-               (sort > (total-elves (parse-input input)))))) ; 206582
+  (->> (parse-input input)
+       (total-elves)
+       (sort >)
+       (take 3)
+       (apply +)))
 
 (= (part1) 70116)
 (= (part2) 206582)
