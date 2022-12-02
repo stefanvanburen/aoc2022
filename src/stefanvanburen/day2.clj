@@ -1,9 +1,14 @@
 (ns stefanvanburen.day2
   (:require
-   [clojure.string :refer [split]]
+   [clojure.string :refer [split split-lines]]
    [clojure.java.io :as io]))
 
 (def input (slurp (io/resource "dec2.txt")))
+
+(def parsed-input
+  (->> input
+       (split-lines)
+       (map #(split % #" "))))
 
 (defn letter-to-play [letter]
   (get {"A" :rock
@@ -45,10 +50,7 @@
   (score ["B" "X"])
   (score ["C" "Z"]))
 
-(apply +
-       (map #(score %)
-            (map #(split % #" ")
-                 (split input #"\n")))) ; 9759
+(apply + (map #(score %) parsed-input)) ; 9759
 
 ;;; In the first round, your opponent will choose Rock (A),
 ;;; and you need the round to end in a draw (Y),
@@ -78,7 +80,4 @@
         outcome (get-outcome opponent-play my-play)]
     (+ (score-for-play my-play) (score-for-outcome outcome))))
 
-(apply +
-       (map #(score-part-2 %)
-            (map #(split % #" ")
-                 (split input #"\n")))) ; 12429
+(apply + (map #(score-part-2 %) parsed-input)) ; 12429
